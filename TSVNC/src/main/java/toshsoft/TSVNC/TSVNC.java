@@ -138,7 +138,7 @@ public class TSVNC extends Activity {
 			return;
 		ipText.setText(settings.getAddress());
 		portText.setText(Integer.toString(settings.getPort()));
-		if (settings.getKeepPassword() || settings.getPassword().length()>0) {
+		if (settings.getKeepPassword() || settings.getPassword().length() > 0) {
 			passwordText.setText(settings.getPassword());
 		}
 		// groupForceFullScreen.check(selected.getForceFull()==BitmapImplHint.AUTO ? R.id.radioForceFullScreenAuto : (selected.getForceFull() == BitmapImplHint.FULL ? R.id.radioForceFullScreenOn : R.id.radioForceFullScreenOff));

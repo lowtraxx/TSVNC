@@ -15,6 +15,7 @@ class VncSettings {
 
     private static final String VNC_PREF_USERNAME = "vnc_pref_username";
     private static final String VNC_PREF_PASSWORD = "vnc_pref_password";
+    private static final String VNC_PREF_PASSWORD_CHECKED = "vnc_pref_password_checked";
     private static final String VNC_PREF_SERVER = "vnc_pref_server";
     private static final String VNC_PREF_PORT = "vnc_pref_port";
 
@@ -69,7 +70,7 @@ class VncSettings {
     }
 
     public boolean getKeepPassword() {
-        return true;
+        return sharedPref.getBoolean(VNC_PREF_PASSWORD_CHECKED, false);
     }
 
     public ImageView.ScaleType getScaleMode() {
@@ -127,6 +128,8 @@ class VncSettings {
     }
 
     public void setKeepPassword(boolean checked) {
+        prefEditor.putBoolean(VNC_PREF_PASSWORD_CHECKED, checked);
+        prefEditor.apply();
     }
 
     public void setScaleMode(ImageView.ScaleType scaleType) {

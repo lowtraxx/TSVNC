@@ -648,6 +648,9 @@ public class VncCanvasActivity extends Activity {
 	@Override
 	protected void onStop() {
 		vncCanvas.disableRepaints();
+		// Remove the password if the user does not want it saved
+		if(!settings.getKeepPassword())
+			settings.setPassword("");
 		super.onStop();
 	}
 
