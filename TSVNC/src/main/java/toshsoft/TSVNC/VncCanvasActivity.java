@@ -27,7 +27,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -49,8 +48,6 @@ import android.widget.Toast;
 
 import com.antlersoft.android.bc.BCFactory;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VncCanvasActivity extends Activity {
@@ -528,7 +525,7 @@ public class VncCanvasActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		Intent i = getIntent();
-		settings = VncSettings.getPreferences();
+		settings = VncSettings.getPreferences(getApplication());
 		Uri data = i.getData();
 		if ((data != null) && (data.getScheme().equals("vnc"))) {
 			String host = data.getHost();

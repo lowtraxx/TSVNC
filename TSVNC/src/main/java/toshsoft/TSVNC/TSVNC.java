@@ -25,11 +25,9 @@ import android.app.Activity;
 import android.app.ActivityManager.MemoryInfo;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,9 +39,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class TSVNC extends Activity {
 	private EditText ipText;
@@ -187,7 +182,7 @@ public class TSVNC extends Activity {
 	}
 	
 	private void updateSelectedFromView() {
-		if (settings ==null) {
+		if (settings == null) {
 			return;
 		}
 		settings.setAddress(ipText.getText().toString());
@@ -224,7 +219,7 @@ public class TSVNC extends Activity {
 	}
 	
 	void arriveOnPage() {
-		settings = VncSettings.getPreferences();
+		settings = VncSettings.getPreferences(getApplication());
 		updateViewFromSelected();
 	}
 	
