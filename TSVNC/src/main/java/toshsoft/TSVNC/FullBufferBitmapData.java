@@ -3,13 +3,13 @@
  */
 package toshsoft.TSVNC;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.widget.ImageView;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author Michael A. MacDonald
@@ -73,7 +73,7 @@ class FullBufferBitmapData extends AbstractBitmapData {
 				}
 				*/
 			}
-			if(data.vncCanvas.connection.getUseLocalCursor())
+			if(data.vncCanvas.settings.getUseLocalCursor())
 			{
 				setCursorRect(data.vncCanvas.mouseX, data.vncCanvas.mouseY);
 				clipRect.set(cursorRect);

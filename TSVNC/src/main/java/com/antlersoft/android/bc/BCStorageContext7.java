@@ -3,11 +3,10 @@
  */
 package com.antlersoft.android.bc;
 
-import java.io.File;
-
 import android.content.Context;
-
 import android.os.Environment;
+
+import java.io.File;
 
 /**
  * @author Michael A. MacDonald

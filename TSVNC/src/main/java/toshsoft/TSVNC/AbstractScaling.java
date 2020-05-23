@@ -88,12 +88,12 @@ abstract class AbstractScaling {
 	{
 		activity.vncCanvas.scaling = this;
 		activity.vncCanvas.setScaleType(scaleType);
-		activity.getConnection().setScaleMode(scaleType);
+		activity.getSettings().setScaleMode(scaleType);
 		if (activity.inputHandler == null || ! isValidInputMode(activity.getModeIdFromHandler(activity.inputHandler))) {
 			activity.inputHandler=activity.getInputHandlerById(getDefaultHandlerId());
-			activity.getConnection().setInputMode(activity.inputHandler.getName());
+			activity.getSettings().setInputMode(activity.inputHandler.getName());
 		}
-		activity.getConnection().Gen_update(activity.database.getWritableDatabase());
+		activity.getSettings().Gen_update();
 		activity.updateInputMenu();
 	}
 	

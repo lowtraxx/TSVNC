@@ -19,7 +19,5 @@ android {
 }
 
 dependencies {
-    compile files('libs/com.antlersoft.android.contentxml.jar')
-    compile files('libs/com.antlersoft.android.db.jar')
     implementation 'com.google.android.material:material:1.1.0'
 }

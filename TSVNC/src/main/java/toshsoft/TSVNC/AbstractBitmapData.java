@@ -3,13 +3,13 @@
  */
 package toshsoft.TSVNC;
 
-import java.io.IOException;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.widget.ImageView;
+
+import java.io.IOException;
 
 /**
  * Abstract interface between the VncCanvas and the bitmap and pixel data buffers that actually contain
@@ -46,7 +46,7 @@ abstract class AbstractBitmapData {
 	
 	final void invalidateMousePosition()
 	{
-		if (vncCanvas.connection.getUseLocalCursor())
+		if (vncCanvas.settings.getUseLocalCursor())
 		{
 			if (drawable==null)
 				drawable = createDrawable();

@@ -3,12 +3,12 @@
  */
 package toshsoft.TSVNC;
 
-import java.io.IOException;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+
+import java.io.IOException;
 
 /**
  * @author Michael A. MacDonald

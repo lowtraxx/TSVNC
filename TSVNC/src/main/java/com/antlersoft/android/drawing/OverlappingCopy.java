@@ -1,12 +1,12 @@
 package com.antlersoft.android.drawing;
 
-import com.antlersoft.util.ObjectPool;
-import com.antlersoft.util.SafeObjectPool;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+
+import com.antlersoft.util.ObjectPool;
+import com.antlersoft.util.SafeObjectPool;
 
 public class OverlappingCopy
 {

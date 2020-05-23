@@ -3,17 +3,17 @@
  */
 package toshsoft.TSVNC;
 
-import java.io.IOException;
-
-import com.antlersoft.android.drawing.OverlappingCopy;
-import com.antlersoft.android.drawing.RectList;
-import com.antlersoft.util.ObjectPool;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+
+import com.antlersoft.android.drawing.OverlappingCopy;
+import com.antlersoft.android.drawing.RectList;
+import com.antlersoft.util.ObjectPool;
+
+import java.io.IOException;
 
 /**
  * @author Michael A. MacDonald

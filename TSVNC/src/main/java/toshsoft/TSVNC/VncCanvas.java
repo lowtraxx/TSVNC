@@ -29,16 +29,13 @@
 
 package toshsoft.TSVNC;
 
-import java.io.IOException;
-import java.util.zip.Inflater;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Paint.Style;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.util.AttributeSet;
@@ -52,6 +49,9 @@ import android.widget.Toast;
 
 import com.antlersoft.android.bc.BCFactory;
 
+import java.io.IOException;
+import java.util.zip.Inflater;
+
 
 public class VncCanvas extends ImageView {
 	private final static String TAG = "VncCanvas";
@@ -64,7 +64,7 @@ public class VncCanvas extends ImageView {
 	int mouseX, mouseY;
 	
 	// Connection parameters
-	ConnectionBean connection;
+	VncSettings settings;
 
 	// Runtime control flags
 	private boolean maintainConnection = true;
@@ -145,19 +145,19 @@ public class VncCanvas extends ImageView {
 
 	/**
 	 * Create a view showing a VNC connection
-	 * @param bean Connection settings
+	 * @param settings Connection settings
 	 * @param setModes Callback to run on UI thread after connection is set up
 	 */
-	void initializeVncCanvas(ConnectionBean bean, final Runnable setModes) {
-		connection = bean;
-		if (connection.getUseWakeLock())
+	void initializeVncCanvas(VncSettings settings, final Runnable setModes) {
+		this.settings = settings;
+		if (this.settings.getUseWakeLock())
 		{
 			if (wakeLock != null && wakeLock.isHeld()) {
 				wakeLock.release();
 			}
 			wakeLock = ((PowerManager)getContext().getSystemService(Context.POWER_SERVICE)).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "android.androidVNC");
 		}
-		this.pendingColorModel = COLORMODEL.valueOf(bean.getColorModel());
+		this.pendingColorModel = COLORMODEL.valueOf(settings.getColorModel());
 
 		// Startup the RFB thread with a nifty progess dialog
 		final ProgressDialog pd = ProgressDialog.show(getContext(), "Connecting...", "Establishing handshake.\nPlease wait...", true, true, new DialogInterface.OnCancelListener() {
@@ -179,7 +179,7 @@ public class VncCanvas extends ImageView {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					connectAndAuthenticate(connection.getUserName(),connection.getPassword());
+					connectAndAuthenticate(VncCanvas.this.settings.getUserName(), VncCanvas.this.settings.getPassword());
 					doProtocolInitialisation((int)displayWidth, (int)displayHeight);
 					handler.post(new Runnable() {
 						public void run() {
@@ -220,21 +220,10 @@ public class VncCanvas extends ImageView {
 	}
 
 	void connectAndAuthenticate(String us,String pw) throws Exception {
-		Log.i(TAG, "Connecting to " + connection.getAddress() + ", port " + connection.getPort() + "...");
+		Log.i(TAG, "Connecting to " + settings.getAddress() + ", port " + settings.getPort() + "...");
 
-		rfb = new RfbProto(connection.getAddress(), connection.getPort());
+		rfb = new RfbProto(settings.getAddress(), settings.getPort());
 		if (LOCAL_LOGV) Log.v(TAG, "Connected to server");
-
-		// <RepeaterMagic>
-		if (connection.getUseRepeater() && connection.getRepeaterId() != null && connection.getRepeaterId().length()>0) {
-			Log.i(TAG, "Negotiating repeater/proxy connection");
-			byte[] protocolMsg = new byte[12];
-			rfb.is.read(protocolMsg);
-			byte[] buffer = new byte[250];
-			System.arraycopy(connection.getRepeaterId().getBytes(), 0, buffer, 0, connection.getRepeaterId().length());
-			rfb.os.write(buffer);
-		}
-		// </RepeaterMagic>
 
 		rfb.readVersionMsg();
 		Log.i(TAG, "RFB server supports protocol version " + rfb.serverMajor + "." + rfb.serverMinor);
@@ -243,7 +232,7 @@ public class VncCanvas extends ImageView {
 		Log.i(TAG, "Using RFB protocol version " + rfb.clientMajor + "." + rfb.clientMinor);
 
 		int bitPref=0;
-		if(connection.getUserName().length()>0)
+		if(settings.getUserName().length()>0)
 		  bitPref|=1;
 		Log.d("debug","bitPref="+bitPref);
 		int secType = rfb.negotiateSecurity(bitPref);
@@ -285,13 +274,13 @@ public class VncCanvas extends ImageView {
 
 		boolean useFull = false;
 		int capacity = BCFactory.getInstance().getBCActivityManager().getMemoryClass(Utils.getActivityManager(getContext()));
-		if (connection.getForceFull() == BitmapImplHint.AUTO)
+		if (settings.getForceFull() == BitmapImplHint.AUTO)
 		{
 			if (rfb.framebufferWidth * rfb.framebufferHeight * FullBufferBitmapData.CAPACITY_MULTIPLIER <= capacity * 1024 * 1024)
 				useFull = true;
 		}
 		else
-			useFull = (connection.getForceFull() == BitmapImplHint.FULL);
+			useFull = (settings.getForceFull() == BitmapImplHint.FULL);
 		if (! useFull)
 			bitmapData=new LargeBitmapData(rfb,this,dx,dy,capacity);
 		else
@@ -322,7 +311,7 @@ public class VncCanvas extends ImageView {
 	
 	private void mouseFollowPan()
 	{
-		if (connection.getFollowPan() && scaling.isAbleToPan())
+		if (settings.getFollowPan() && scaling.isAbleToPan())
 		{
 			int scrollx = absoluteXPosition;
 			int scrolly = absoluteYPosition;
@@ -338,7 +327,7 @@ public class VncCanvas extends ImageView {
 	}
 
 	public void processNormalProtocol(final Context context, ProgressDialog pd, final Runnable setModes) throws Exception {
-		if (wakeLock != null && connection.getUseWakeLock()) {
+		if (wakeLock != null && settings.getUseWakeLock()) {
 			wakeLock.acquire();
 		}
 		try {
@@ -562,7 +551,7 @@ public class VncCanvas extends ImageView {
 	 */
 	void panToMouse()
 	{
-		if (! connection.getFollowMouse())
+		if (! settings.getFollowMouse())
 			return;
 		
 		if (scaling != null && ! scaling.isAbleToPan())
@@ -1027,31 +1016,6 @@ public class VncCanvas extends ImageView {
 
 	public void closeConnection() {
 		maintainConnection = false;
-	}
-	
-	void sendMetaKey(MetaKeyBean meta)
-	{
-		if (meta.isMouseClick())
-		{
-			try {
-				rfb.writePointerEvent(mouseX, mouseY, meta.getMetaFlags(), meta.getMouseButtons());
-				rfb.writePointerEvent(mouseX, mouseY, meta.getMetaFlags(), 0);
-			}
-			catch (IOException ioe)
-			{
-				ioe.printStackTrace();
-			}
-		}
-		else {
-			try {
-				rfb.writeKeyEvent(meta.getKeySym(), meta.getMetaFlags(), true);
-				rfb.writeKeyEvent(meta.getKeySym(), meta.getMetaFlags(), false);
-			}
-			catch (IOException ioe)
-			{
-				ioe.printStackTrace();
-			}
-		}
 	}
 	
 	float getScale()

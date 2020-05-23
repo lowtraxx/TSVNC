@@ -18,13 +18,7 @@
                 <data android:scheme="vnc" />
             </intent-filter>
 		</activity>
-       <activity android:name="toshsoft.TSVNC.ConnectionListActivity" android:label="@string/shortcut_label">
-        	<intent-filter>
-        		<action android:name="android.intent.action.CREATE_SHORTCUT" />
-        		<category android:name="android.intent.category.DEFAULT" />
-        	</intent-filter>
-        </activity>
-	</application>
+    </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>

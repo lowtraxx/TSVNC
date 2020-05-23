@@ -5,9 +5,9 @@ package com.antlersoft.android.drawing;
 
 import android.graphics.Rect;
 
-import java.util.ArrayList;
-
 import com.antlersoft.util.ObjectPool;
+
+import java.util.ArrayList;
 
 /**
  * A list of rectangular regions that together represent an area of interest.  Provides

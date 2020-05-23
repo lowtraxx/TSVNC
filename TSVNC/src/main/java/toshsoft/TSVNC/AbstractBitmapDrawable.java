@@ -41,7 +41,7 @@ public class AbstractBitmapDrawable extends DrawableContainer {
 	void draw(Canvas canvas, int xoff, int yoff)
 	{
 		canvas.drawBitmap(data.mbitmap, xoff, yoff, _defaultPaint);
-		if(data.vncCanvas.connection.getUseLocalCursor())
+		if(data.vncCanvas.settings.getUseLocalCursor())
 		{
 			setCursorRect(data.vncCanvas.mouseX, data.vncCanvas.mouseY);
 			clipRect.set(cursorRect);
