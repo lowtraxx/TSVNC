@@ -1,0 +1,25 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "toshsoft.TSVNC"
+        minSdkVersion 24
+        targetSdkVersion 29
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/com.antlersoft.android.contentxml.jar')
+    compile files('libs/com.antlersoft.android.db.jar')
+    implementation 'com.google.android.material:material:1.1.0'
+}
