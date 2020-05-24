@@ -1,9 +1,24 @@
 package toshsoft.TSVNC;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public enum COLORMODEL {
 	C24bit, C256, C64, C8, C4, C2;
+
+	public static final String COLORMODEL_24_BIT = "C24bit";
+	public static final String COLORMODEL_256_COLORS = "C256";
+	public static final String COLORMODEL_64_COLORS = "C64";
+	public static final String COLORMODEL_8_COLORS = "C8";
+	public static final String COLORMODEL_GREYSCALE = "C4";
+	public static final String COLORMODEL_BLACK_AND_WHITE = "C2";
+
+	public static final String COLORMODEL_24_BIT_STRING = "24-bit color (4 bpp)";
+	public static final String COLORMODEL_256_COLORS_STRING = "256 colors (1 bpp)";
+	public static final String COLORMODEL_64_COLORS_STRING = "64 colors (1 bpp)";
+	public static final String COLORMODEL_8_COLORS_STRING = "8 colors (1 bpp)";
+	public static final String COLORMODEL_GREYSCALE_STRING =  "Greyscale (1 bpp)";
+	public static final String COLORMODEL_BLACK_AND_WHITE_STRING =  "Black & White (1 bpp)";
 
 	public int bpp() {
 		switch (this) {
@@ -68,22 +83,76 @@ public enum COLORMODEL {
 		}
 	}
 
+	static public COLORMODEL getModelForId(String id) {
+		switch (id) {
+			case COLORMODEL_24_BIT:
+				return C24bit;
+			case COLORMODEL_256_COLORS:
+				return C256;
+			case COLORMODEL_64_COLORS:
+				return C64;
+			case COLORMODEL_8_COLORS:
+				return C8;
+			case COLORMODEL_GREYSCALE:
+				return C4;
+			case COLORMODEL_BLACK_AND_WHITE:
+				return C2;
+			default:
+				return C24bit;
+		}
+	}
+
+	static public COLORMODEL getModelForDesc(String desc) {
+		switch (desc) {
+			case COLORMODEL_256_COLORS_STRING:
+				return C256;
+			case COLORMODEL_64_COLORS_STRING:
+				return C64;
+			case COLORMODEL_8_COLORS_STRING:
+				return C8;
+			case COLORMODEL_GREYSCALE_STRING:
+				return C4;
+			case COLORMODEL_BLACK_AND_WHITE_STRING:
+				return C2;
+			case COLORMODEL_24_BIT_STRING:
+			default:
+				return C24bit;
+		}
+	}
+
+	public String getId() {
+		switch (this) {
+			case C256:
+				return COLORMODEL_256_COLORS;
+			case C64:
+				return COLORMODEL_64_COLORS;
+			case C8:
+				return COLORMODEL_8_COLORS;
+			case C4:
+				return COLORMODEL_GREYSCALE;
+			case C2:
+				return COLORMODEL_BLACK_AND_WHITE;
+			case C24bit:
+			default:
+				return COLORMODEL_24_BIT;
+		}
+	}
+
 	public String toString() {
 		switch (this) {
-		case C24bit:
-			return "24-bit color (4 bpp)";
 		case C256:
-			return "256 colors (1 bpp)";
+			return COLORMODEL_256_COLORS_STRING;
 		case C64:
-			return "64 colors (1 bpp)";
+			return COLORMODEL_64_COLORS_STRING;
 		case C8:
-			return "8 colors (1 bpp)";
+			return COLORMODEL_8_COLORS_STRING;
 		case C4:
-			return "Greyscale (1 bpp)";
+			return COLORMODEL_GREYSCALE_STRING;
 		case C2:
-			return "Black & White (1 bpp)";
+			return COLORMODEL_BLACK_AND_WHITE_STRING;
+		case C24bit:
 		default:
-			return "256 colors (1 bpp)";
+			return COLORMODEL_24_BIT_STRING;
 		}
 	}
 }

@@ -47,6 +47,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.antlersoft.android.bc.BCFactory;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -551,17 +552,7 @@ public class VncCanvasActivity extends Activity {
 			}
 			if (host.equals(VncConstants.CONNECTION))
 			{
-				/*
-				if (settings.Gen_read(database.getReadableDatabase(), port))
-				{
-					toshsoft.TSVNC.MostRecentBean bean = TSVNC.getMostRecent(database.getReadableDatabase());
-					if (bean != null)
-					{
-						bean.setConnectionId(settings.get_Id());
-						bean.Gen_update(database.getWritableDatabase());
-					}
-				}
-				*/
+
 			}
 			else
 			{
@@ -577,7 +568,7 @@ public class VncCanvasActivity extends Activity {
 			    settings.save();
 			}
 		} else {
-		
+
 		    Bundle extras = i.getExtras();
 
 		    if (extras != null) {
@@ -858,8 +849,7 @@ public class VncCanvasActivity extends Activity {
 	}
 
 	public void showPanningState() {
-		Toast.makeText(this, inputHandler.getHandlerDescription(),
-				Toast.LENGTH_SHORT).show();
+		Snackbar.make(vncCanvas, inputHandler.getHandlerDescription(), Snackbar.LENGTH_SHORT).show();
 	}
 
 	/*
@@ -925,11 +915,9 @@ public class VncCanvasActivity extends Activity {
 				dialog.dismiss();
 				COLORMODEL cm = COLORMODEL.values()[arg2];
 				vncCanvas.setColorModel(cm);
-				settings.setColorModel(cm.nameString());
+				settings.setColorModel(cm.getId());
 				settings.save();
-				Toast.makeText(VncCanvasActivity.this,
-						"Updating Color Model to " + cm.toString(),
-						Toast.LENGTH_SHORT).show();
+				Snackbar.make(vncCanvas, "Updating Color Model to " + cm.toString(), Snackbar.LENGTH_SHORT).show();
 			}
 		});
 		dialog.setOnDismissListener(new OnDismissListener() {

@@ -9,10 +9,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:autoSizeTextType="uniform"
             android:layout_weight="1"
-            android:background="@color/design_default_color_primary_variant"
+            android:background="@color/tsvnc_theme_dark_primary"
+            android:textColor="@color/tsvnc_theme_dark_on_surface"
             android:text="@string/shortcut_label"
             android:drawableLeft="@mipmap/ic_launcher_foreground"
             />
@@ -59,7 +60,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_weight="0.35"
             android:hint="@string/username_caption">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +73,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_weight="0.35"
             android:hint="@string/password_caption">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -82,11 +83,39 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <CheckBox
-            android:id="@+id/checkboxKeepPassword"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <CheckBox
+                android:id="@+id/checkboxKeepPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:hint="@string/keep_password_button" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TSVNCTheme.Dropdown"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:hint="@string/keep_password_button" />
+            android:hint="@string/color_mode">
+
+            <AutoCompleteTextView
+                style="@style/TSVNCTheme.Dropdown"
+                android:id="@+id/filled_exposed_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
     </TableRow>
 </TableLayout>

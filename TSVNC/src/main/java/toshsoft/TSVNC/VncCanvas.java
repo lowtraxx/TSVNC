@@ -44,16 +44,16 @@ import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.view.View;
 
 import com.antlersoft.android.bc.BCFactory;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.util.zip.Inflater;
 
 
-public class VncCanvas extends ImageView {
+public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	private final static String TAG = "VncCanvas";
 	private final static boolean LOCAL_LOGV = true;
 	private PowerManager.WakeLock wakeLock;
@@ -157,7 +157,7 @@ public class VncCanvas extends ImageView {
 			}
 			wakeLock = ((PowerManager)getContext().getSystemService(Context.POWER_SERVICE)).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "android.androidVNC");
 		}
-		this.pendingColorModel = COLORMODEL.valueOf(settings.getColorModel());
+		this.pendingColorModel = COLORMODEL.getModelForId(settings.getColorModel());
 
 		// Startup the RFB thread with a nifty progess dialog
 		final ProgressDialog pd = ProgressDialog.show(getContext(), "Connecting...", "Establishing handshake.\nPlease wait...", true, true, new DialogInterface.OnCancelListener() {
@@ -434,7 +434,7 @@ public class VncCanvas extends ImageView {
 
 				case RfbProto.Bell:
 					handler.post( new Runnable() {
-						public void run() { Toast.makeText( context, "VNC Beep", Toast.LENGTH_SHORT); }
+						public void run() { /* TODO: Bell */ }
 					});
 					break;
 
@@ -746,7 +746,7 @@ public class VncCanvas extends ImageView {
 			msg += ", " + getEncoding() + " encoding, " + colorModel.toString();
 		else
 			msg += ", " + colorModel.toString();
-		Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+		Snackbar.make(this, msg, Snackbar.LENGTH_SHORT).show();
 	}
 
 	private String getEncoding() {

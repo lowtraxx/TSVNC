@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TSVNCTheme" parent="Theme.MaterialComponents.DayNight">
+    </style>
+    <style name="TSVNCTheme.Dialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/tsvnc_theme_dark_primary</item>
+        <item name="colorSecondary">@color/tsvnc_theme_dark_secondary</item>
+        <item name="colorOnSurface">@color/tsvnc_theme_dark_on_surface</item>
+        <item name="android:background">@color/tsvnc_theme_dark_background</item>
+    </style>
+</resources>

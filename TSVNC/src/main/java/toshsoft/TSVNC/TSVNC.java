@@ -26,9 +26,12 @@ import android.app.ActivityManager.MemoryInfo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -44,17 +47,10 @@ public class TSVNC extends Activity {
 	private EditText ipText;
 	private EditText portText;
 	private EditText passwordText;
-	private Button goButton;
-	private TextView repeaterText;
-	private RadioGroup groupForceFullScreen;
-	private Spinner colorSpinner;
-	private Spinner spinnerConnection;
 	private VncSettings settings;
-	private EditText textNickname;
 	private EditText textUsername;
 	private CheckBox checkboxKeepPassword;
-	private CheckBox checkboxLocalCursor;
-	private CheckBox checkboxWakeLock;
+	private AutoCompleteTextView editTextFilledExposedDropdown;
 	private boolean repeaterTextSet;
 
 	@Override
@@ -73,6 +69,26 @@ public class TSVNC extends Activity {
 		// textNickname = (TextInputEditText) findViewById(R.id.textNickname);
 		textUsername = (TextInputEditText)promptsView.findViewById(R.id.textUsername);
 		checkboxKeepPassword = (CheckBox)promptsView.findViewById(R.id.checkboxKeepPassword);
+
+		editTextFilledExposedDropdown =
+				promptsView.findViewById(R.id.filled_exposed_dropdown);
+		editTextFilledExposedDropdown.setInputType(InputType.TYPE_NULL);
+
+		String[] COLORMODES = new String[] {COLORMODEL.C2.toString(),
+				COLORMODEL.C4.toString(), COLORMODEL.C8.toString(),
+				COLORMODEL.C64.toString(), COLORMODEL.C256.toString(),
+				COLORMODEL.C24bit.toString()
+		};
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        this,
+                        R.layout.dropdown_menu_popup_item,
+						COLORMODES);
+
+
+        editTextFilledExposedDropdown.setAdapter(adapter);
+
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				this);
@@ -141,44 +157,10 @@ public class TSVNC extends Activity {
 		if (settings.getKeepPassword() || settings.getPassword().length() > 0) {
 			passwordText.setText(settings.getPassword());
 		}
-		// groupForceFullScreen.check(selected.getForceFull()==BitmapImplHint.AUTO ? R.id.radioForceFullScreenAuto : (selected.getForceFull() == BitmapImplHint.FULL ? R.id.radioForceFullScreenOn : R.id.radioForceFullScreenOff));
 		checkboxKeepPassword.setChecked(settings.getKeepPassword());
-		// checkboxLocalCursor.setChecked(selected.getUseLocalCursor());
-		// checkboxWakeLock.setChecked(selected.getUseWakeLock());
-		// textNickname.setText(selected.getNickname());
 		textUsername.setText(settings.getUserName());
 
-		/*
-		COLORMODEL cm = COLORMODEL.valueOf(selected.getColorModel());
-		COLORMODEL[] colors=COLORMODEL.values();
-		for (int i=0; i<colors.length; ++i)
-		{
-			if (colors[i] == cm) {
-				colorSpinner.setSelection(i);
-				break;
-			}
-		}
-		updateRepeaterInfo(selected.getUseRepeater(), selected.getRepeaterId());
-		 */
-	}
-	
-	/**
-	 * Called when changing view to match selected connection or from
-	 * Repeater dialog to update the repeater information shown.
-	 * @param repeaterId If null or empty, show text for not using repeater
-	 */
-	void updateRepeaterInfo(boolean useRepeater, String repeaterId)
-	{
-		if (useRepeater)
-		{
-			repeaterText.setText(repeaterId);
-			repeaterTextSet = true;
-		}
-		else
-		{
-			repeaterText.setText(getText(R.string.repeater_empty_text));
-			repeaterTextSet = false;
-		}
+		editTextFilledExposedDropdown.setText(COLORMODEL.getModelForId(settings.getColorModel()).toString(), false);
 	}
 	
 	private void updateSelectedFromView() {
@@ -200,7 +182,7 @@ public class TSVNC extends Activity {
 		settings.setPassword(passwordText.getText().toString());
 		settings.setKeepPassword(checkboxKeepPassword.isChecked());
 		// selected.setUseLocalCursor(checkboxLocalCursor.isChecked());
-		// selected.setColorModel(((COLORMODEL)colorSpinner.getSelectedItem()).nameString());
+		settings.setColorModel(COLORMODEL.getModelForDesc(editTextFilledExposedDropdown.getText().toString()).getId());
 		//selected.setUseWakeLock(checkboxWakeLock.isChecked());
 		/*if (repeaterTextSet)
 		{

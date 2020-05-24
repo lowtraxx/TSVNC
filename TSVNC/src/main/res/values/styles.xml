@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TSVNCTheme.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    </style>
+
+    <style name="TSVNCTheme.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/tsvnc_theme_dark_on_surface</item>
+        <item name="android:background">@color/tsvnc_theme_dark_background</item>
+    </style>
+</resources>

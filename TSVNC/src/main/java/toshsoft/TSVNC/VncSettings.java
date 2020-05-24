@@ -18,6 +18,7 @@ class VncSettings {
     private static final String VNC_PREF_PASSWORD_CHECKED = "vnc_pref_password_checked";
     private static final String VNC_PREF_SERVER = "vnc_pref_server";
     private static final String VNC_PREF_PORT = "vnc_pref_port";
+    private static final String VNC_PREF_COLOR_DEPTH = "vnc_pref_color_depth";
 
     private VncSettings() {
 
@@ -66,7 +67,7 @@ class VncSettings {
     }
 
     public String getColorModel() {
-        return COLORMODEL.C24bit.nameString();
+        return sharedPref.getString(VNC_PREF_COLOR_DEPTH, COLORMODEL.C24bit.getId());
     }
 
     public boolean getKeepPassword() {
@@ -132,6 +133,11 @@ class VncSettings {
         prefEditor.apply();
     }
 
+    public void setColorModel(String depth) {
+        prefEditor.putString(VNC_PREF_COLOR_DEPTH, depth);
+        prefEditor.apply();
+    }
+
     public void setScaleMode(ImageView.ScaleType scaleType) {
     }
 
@@ -142,9 +148,6 @@ class VncSettings {
     }
 
     public void setFollowPan(boolean newFollowPan) {
-    }
-
-    public void setColorModel(String s) {
     }
 
 

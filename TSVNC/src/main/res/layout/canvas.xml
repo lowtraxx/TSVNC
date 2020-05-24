@@ -5,12 +5,12 @@
     android:layout_height="fill_parent"
     >
 
-<toshsoft.TSVNC.VncCanvas
-    android:id="@+id/vnc_canvas"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="bottom|center"
-    >
-</toshsoft.TSVNC.VncCanvas>
+    <toshsoft.TSVNC.VncCanvas
+        android:id="@+id/vnc_canvas"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="bottom|center"
+        >
+    </toshsoft.TSVNC.VncCanvas>
 
 </FrameLayout>
