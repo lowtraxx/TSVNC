@@ -13,13 +13,13 @@
         android:layout_height="fill_parent"
         >
 
-    <toshsoft.TSVNC.VncCanvas
-        android:id="@+id/vnc_canvas"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="bottom|center"
-        >
-    </toshsoft.TSVNC.VncCanvas>
+        <toshsoft.TSVNC.VncCanvas
+            android:id="@+id/vnc_canvas"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom|center"
+            >
+        </toshsoft.TSVNC.VncCanvas>
     </FrameLayout>
 
     <FrameLayout
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:backgroundTint="@color/tsvnc_theme_dark_primary"
+        app:backgroundTint="@color/tsvnc_theme_dark_primary_alpha"
         app:behavior_expanded_width="175dp"
         app:behavior_horizontal_peekHeight="97dp"
         app:behavior_peekHeight="60dp"
@@ -42,17 +42,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@android:color/transparent"
-            app:title="Corner  Sample"
-            app:titleTextColor="@android:color/white" />
+            app:title="@string/options"
+            app:titleTextColor="@android:color/white"
+            app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
 
-        <TextView
-            android:id="@+id/expandedValue"
+        <Button
+            android:id="@+id/exitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="SLIDE OFFSET"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:text="@string/exit"
+            />
 
     </FrameLayout>
 

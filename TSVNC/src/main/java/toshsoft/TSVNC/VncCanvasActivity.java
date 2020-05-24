@@ -42,6 +42,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -592,7 +593,6 @@ public class VncCanvasActivity extends Activity {
 		setContentView(R.layout.canvas);
 
 		vncCanvas = (VncCanvas) findViewById(R.id.vnc_canvas);
-
 		vncCanvas.initializeVncCanvas(settings, new Runnable() {
 			public void run() {
 				setModes();
@@ -602,6 +602,15 @@ public class VncCanvasActivity extends Activity {
 		panner = new Panner(this, vncCanvas.handler);
 
 		inputHandler = getInputHandlerById(R.id.itemInputFitToScreen);
+
+		Button exitButton = (Button)findViewById(R.id.exitButton);
+		exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
 	}
 
 	/**

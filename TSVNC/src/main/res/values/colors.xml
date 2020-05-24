@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="tsvnc_theme_dark_primary">#607B8D</color>
+    <color name="tsvnc_theme_dark_primary_alpha">#CC607B8D</color>
     <color name="tsvnc_theme_dark_secondary">#CFD8DC</color>
     <color name="tsvnc_theme_dark_on_surface">#FFFFFF</color>
     <color name="tsvnc_theme_dark_background">#333333</color>

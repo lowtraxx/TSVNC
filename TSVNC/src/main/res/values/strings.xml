@@ -40,4 +40,6 @@
     <string name="shortcut_label">VNC Connection</string>
     <string name="special_keys">Send Keys</string>
     <string name="username_caption">Username</string>
+    <string name="options">Options</string>
+    <string name="exit">Exit</string>
 </resources>
