@@ -7,4 +7,9 @@
         <item name="android:textColor">@color/tsvnc_theme_dark_on_surface</item>
         <item name="android:background">@color/tsvnc_theme_dark_background</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.CornerShape" parent="">
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
 </resources>
