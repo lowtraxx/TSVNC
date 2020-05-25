@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <toshsoft.TSVNC.VncCanvas
-        android:id="@+id/vnc_canvas"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="bottom|center"
         >
-    </toshsoft.TSVNC.VncCanvas>
 
-</FrameLayout>
+        <toshsoft.TSVNC.VncCanvas
+            android:id="@+id/vnc_canvas"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom|center"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            >
+        </toshsoft.TSVNC.VncCanvas>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/corner_behavior_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:backgroundTint="@color/tsvnc_theme_dark_primary_alpha"
+        app:behavior_expanded_width="175dp"
+        app:behavior_horizontal_peekHeight="97dp"
+        app:behavior_peekHeight="60dp"
+        app:layout_behavior="com.github.heyalex.cornersheet.behavior.CornerSheetBehavior"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerShape"
+        tools:behavior_horizontal_peekHeight="97dp"
+        tools:ignore="MissingPrefix">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/transparent"
+            app:title="@string/menu"
+            app:titleTextColor="@android:color/white"
+            app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/exit"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            />
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

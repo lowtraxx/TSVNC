@@ -22,6 +22,7 @@ package toshsoft.TSVNC;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Instrumentation;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -42,9 +43,13 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.antlersoft.android.bc.BCFactory;
 import com.google.android.material.snackbar.Snackbar;
@@ -592,7 +597,6 @@ public class VncCanvasActivity extends Activity {
 		setContentView(R.layout.canvas);
 
 		vncCanvas = (VncCanvas) findViewById(R.id.vnc_canvas);
-
 		vncCanvas.initializeVncCanvas(settings, new Runnable() {
 			public void run() {
 				setModes();
@@ -602,6 +606,26 @@ public class VncCanvasActivity extends Activity {
 		panner = new Panner(this, vncCanvas.handler);
 
 		inputHandler = getInputHandlerById(R.id.itemInputFitToScreen);
+
+		if(!settings.getMenuOverlay()) {
+            FrameLayout layout = (FrameLayout) findViewById(R.id.corner_behavior_container);
+            layout.setVisibility(layout.GONE);
+            layout.requestLayout();
+        } else {
+            Button exitButton = (Button) findViewById(R.id.exitButton);
+            exitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    System.exit(0);
+                }
+            });
+        }
+
+		// We need to do this here, otherwise the first KeyEvent
+		// gets swallowed
+		vncCanvas.setFocusableInTouchMode(true);
+		vncCanvas.requestFocus();
 	}
 
 	/**

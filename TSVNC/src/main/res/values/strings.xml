@@ -40,4 +40,7 @@
     <string name="shortcut_label">VNC Connection</string>
     <string name="special_keys">Send Keys</string>
     <string name="username_caption">Username</string>
+    <string name="menu">Menu</string>
+    <string name="exit">Exit</string>
+    <string name="show_menu_overlay">Show Menu Overlay (Beta)</string>
 </resources>

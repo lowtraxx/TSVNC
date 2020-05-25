@@ -1,121 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TableRow
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:focusableInTouchMode="false"
+    android:focusable="false">
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:autoSizeTextType="uniform"
-            android:layout_weight="1"
-            android:background="@color/tsvnc_theme_dark_primary"
-            android:textColor="@color/tsvnc_theme_dark_on_surface"
-            android:text="@string/shortcut_label"
-            android:drawableLeft="@mipmap/ic_launcher_foreground"
-            />
-    </TableRow>
+            android:layout_height="wrap_content">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:hint="@string/address_caption">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textIP"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="127.0.0.1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="55dp"
+                android:autoSizeTextType="uniform"
+                android:layout_weight="1"
+                android:background="@color/tsvnc_theme_dark_primary"
+                android:textColor="@color/tsvnc_theme_dark_on_surface"
+                android:text="@string/shortcut_label"
+                android:drawableLeft="@mipmap/ic_launcher_foreground"
+                />
+        </TableRow>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".2"
-            android:hint="@string/port_caption">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textPORT"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:text="5901" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.35"
-            android:hint="@string/username_caption">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.35"
-            android:hint="@string/password_caption">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textPASSWORD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <LinearLayout
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <CheckBox
-                android:id="@+id/checkboxKeepPassword"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:gravity="center"
-                android:hint="@string/keep_password_button" />
-        </LinearLayout>
-    </TableRow>
+                android:layout_weight=".8"
+                android:hint="@string/address_caption">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textIP"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="127.0.0.1" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TSVNCTheme.Dropdown"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:hint="@string/port_caption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textPORT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:text="5901" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/color_mode">
+            android:layout_margin="10dp">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="@string/username_caption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="@string/password_caption">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textPASSWORD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
                 style="@style/TSVNCTheme.Dropdown"
-                android:id="@+id/filled_exposed_dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                />
+                android:layout_weight="0.5"
+                android:hint="@string/color_mode">
 
-        </com.google.android.material.textfield.TextInputLayout>
-    </TableRow>
-</TableLayout>
+                <AutoCompleteTextView
+                    style="@style/TSVNCTheme.Dropdown"
+                    android:id="@+id/filled_exposed_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/checkboxKeepPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="@string/keep_password_button"
+                    android:layout_margin="10dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkboxUseOverlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="@string/show_menu_overlay"
+                    android:layout_margin="10dp"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</ScrollView>

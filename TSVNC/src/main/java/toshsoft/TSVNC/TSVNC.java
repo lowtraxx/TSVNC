@@ -50,8 +50,8 @@ public class TSVNC extends Activity {
 	private VncSettings settings;
 	private EditText textUsername;
 	private CheckBox checkboxKeepPassword;
+	private CheckBox checkboxUseOverlay;
 	private AutoCompleteTextView editTextFilledExposedDropdown;
-	private boolean repeaterTextSet;
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -69,6 +69,7 @@ public class TSVNC extends Activity {
 		// textNickname = (TextInputEditText) findViewById(R.id.textNickname);
 		textUsername = (TextInputEditText)promptsView.findViewById(R.id.textUsername);
 		checkboxKeepPassword = (CheckBox)promptsView.findViewById(R.id.checkboxKeepPassword);
+		checkboxUseOverlay = (CheckBox)promptsView.findViewById(R.id.checkboxUseOverlay);
 
 		editTextFilledExposedDropdown =
 				promptsView.findViewById(R.id.filled_exposed_dropdown);
@@ -158,6 +159,7 @@ public class TSVNC extends Activity {
 			passwordText.setText(settings.getPassword());
 		}
 		checkboxKeepPassword.setChecked(settings.getKeepPassword());
+		checkboxUseOverlay.setChecked(settings.getMenuOverlay());
 		textUsername.setText(settings.getUserName());
 
 		editTextFilledExposedDropdown.setText(COLORMODEL.getModelForId(settings.getColorModel()).toString(), false);
@@ -181,6 +183,7 @@ public class TSVNC extends Activity {
 		// selected.setForceFull(groupForceFullScreen.getCheckedRadioButtonId()==R.id.radioForceFullScreenAuto ? BitmapImplHint.AUTO : (groupForceFullScreen.getCheckedRadioButtonId()==R.id.radioForceFullScreenOn ? BitmapImplHint.FULL : BitmapImplHint.TILE));
 		settings.setPassword(passwordText.getText().toString());
 		settings.setKeepPassword(checkboxKeepPassword.isChecked());
+		settings.setMenuOverlay(checkboxUseOverlay.isChecked());
 		// selected.setUseLocalCursor(checkboxLocalCursor.isChecked());
 		settings.setColorModel(COLORMODEL.getModelForDesc(editTextFilledExposedDropdown.getText().toString()).getId());
 		//selected.setUseWakeLock(checkboxWakeLock.isChecked());
