@@ -7,7 +7,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "toshsoft.TSVNC"
+        applicationId "de.toshsoft.tsvnc"
         minSdkVersion 24
         targetSdkVersion 29
     }
