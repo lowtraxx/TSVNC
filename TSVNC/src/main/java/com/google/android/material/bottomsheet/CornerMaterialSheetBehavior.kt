@@ -17,7 +17,7 @@ import androidx.annotation.StyleableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
-import toshsoft.TSVNC.R
+import de.toshsoft.R
 import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
 import com.github.heyalex.cornersheet.interpolate
 import com.google.android.material.shape.MaterialShapeDrawable

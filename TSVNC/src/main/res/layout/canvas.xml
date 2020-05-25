@@ -13,7 +13,7 @@
         android:layout_height="fill_parent"
         >
 
-        <toshsoft.TSVNC.VncCanvas
+        <de.toshsoft.VncCanvas
             android:id="@+id/vnc_canvas"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -21,7 +21,7 @@
             android:focusableInTouchMode="false"
             android:focusable="false"
             >
-        </toshsoft.TSVNC.VncCanvas>
+        </de.toshsoft.VncCanvas>
     </FrameLayout>
 
     <FrameLayout

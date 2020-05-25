@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="toshsoft.TSVNC" android:installLocation="auto" android:versionCode="15" android:versionName="0.7.0">
+    package="de.toshsoft" android:installLocation="auto" android:versionCode="15" android:versionName="0.7.0">
     <application android:theme="@style/TSVNCTheme" android:icon="@mipmap/ic_launcher" android:label="TSVNC">
  		<activity android:label="@string/app_name" android:name="TSVNC" android:screenOrientation="landscape" android:theme="@style/TSVNCTheme.Dialog">
 			<intent-filter>
@@ -8,7 +8,7 @@
 				<category android:name="android.intent.category.LAUNCHER"></category>
 			</intent-filter>
 		</activity>
-		<activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden" android:name="toshsoft.TSVNC.VncCanvasActivity">
+		<activity android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden" android:name="VncCanvasActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW"></action>
 			</intent-filter>
