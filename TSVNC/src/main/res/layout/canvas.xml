@@ -18,6 +18,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="bottom|center"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
             >
         </toshsoft.TSVNC.VncCanvas>
     </FrameLayout>
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@android:color/transparent"
-            app:title="@string/options"
+            app:title="@string/menu"
             app:titleTextColor="@android:color/white"
             app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
 
@@ -52,6 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/exit"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
             />
 
     </FrameLayout>

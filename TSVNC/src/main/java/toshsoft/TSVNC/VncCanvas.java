@@ -954,6 +954,8 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 		      case KeyEvent.KEYCODE_F11:
 		      case KeyEvent.KEYCODE_F12:
 		    	  key = keyCode - KeyEvent.KEYCODE_F1 + 0xffbe; break;
+		      case KeyEvent.KEYCODE_ALT_RIGHT :
+		      	  metaState = 0;
 		      default: 							  
 		    	  key = evt.getUnicodeChar();
 

@@ -19,6 +19,7 @@ class VncSettings {
     private static final String VNC_PREF_SERVER = "vnc_pref_server";
     private static final String VNC_PREF_PORT = "vnc_pref_port";
     private static final String VNC_PREF_COLOR_DEPTH = "vnc_pref_color_depth";
+    private static final String VNC_PREF_MENU_OVERLAY = "vnc_pref_menu_overlay";
 
     private VncSettings() {
 
@@ -72,6 +73,10 @@ class VncSettings {
 
     public boolean getKeepPassword() {
         return sharedPref.getBoolean(VNC_PREF_PASSWORD_CHECKED, false);
+    }
+
+    public boolean getMenuOverlay() {
+        return sharedPref.getBoolean(VNC_PREF_MENU_OVERLAY, false);
     }
 
     public ImageView.ScaleType getScaleMode() {
@@ -135,6 +140,11 @@ class VncSettings {
 
     public void setColorModel(String depth) {
         prefEditor.putString(VNC_PREF_COLOR_DEPTH, depth);
+        prefEditor.apply();
+    }
+
+    public void setMenuOverlay(boolean showOverlay) {
+        prefEditor.putBoolean(VNC_PREF_MENU_OVERLAY, showOverlay);
         prefEditor.apply();
     }
 
