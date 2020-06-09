@@ -135,6 +135,14 @@
                     android:gravity="center"
                     android:hint="@string/show_menu_overlay"
                     android:layout_margin="10dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkboxAutomaticLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="@string/automatic_login"
+                    android:layout_margin="10dp"/>
             </LinearLayout>
         </TableRow>
     </TableLayout>

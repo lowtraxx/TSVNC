@@ -9,9 +9,8 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 class VncSettings {
+    // Singleton
     private static final VncSettings settings = new VncSettings();
-    private static SharedPreferences sharedPref = null;
-    private static SharedPreferences.Editor prefEditor = null;
 
     private static final String VNC_PREF_USERNAME = "vnc_pref_username";
     private static final String VNC_PREF_PASSWORD = "vnc_pref_password";
@@ -20,16 +19,21 @@ class VncSettings {
     private static final String VNC_PREF_PORT = "vnc_pref_port";
     private static final String VNC_PREF_COLOR_DEPTH = "vnc_pref_color_depth";
     private static final String VNC_PREF_MENU_OVERLAY = "vnc_pref_menu_overlay";
+    private static final String VNC_PREF_AUTOMATIC_LOGIN = "vnc_pref_automatic_login";
+
+    // Preferences
+    private SharedPreferences sharedPref = null;
+    private SharedPreferences.Editor prefEditor = null;
 
     private VncSettings() {
 
     }
 
     public static VncSettings getPreferences(Context c) {
-        if(sharedPref == null && c != null) {
+        if(settings.sharedPref == null && c != null) {
             try {
                 String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
-                sharedPref = EncryptedSharedPreferences.create(
+                settings.sharedPref = EncryptedSharedPreferences.create(
                         "secret_shared_prefs",
                         masterKeyAlias,
                         c,
@@ -37,7 +41,7 @@ class VncSettings {
                         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
                 );
 
-                prefEditor = sharedPref.edit();
+                settings.prefEditor = settings.sharedPref.edit();
             } catch (Exception e) {
 
             }
@@ -77,6 +81,10 @@ class VncSettings {
 
     public boolean getMenuOverlay() {
         return sharedPref.getBoolean(VNC_PREF_MENU_OVERLAY, false);
+    }
+
+    public boolean getAutomaticLogin() {
+        return sharedPref.getBoolean(VNC_PREF_AUTOMATIC_LOGIN, false);
     }
 
     public ImageView.ScaleType getScaleMode() {
@@ -148,6 +156,11 @@ class VncSettings {
         prefEditor.apply();
     }
 
+    public void setAutomaticLogin(boolean automaticLogin) {
+        prefEditor.putBoolean(VNC_PREF_AUTOMATIC_LOGIN, automaticLogin);
+        prefEditor.apply();
+    }
+
     public void setScaleMode(ImageView.ScaleType scaleType) {
     }
 
@@ -160,15 +173,7 @@ class VncSettings {
     public void setFollowPan(boolean newFollowPan) {
     }
 
-
-    // Generators
-    public void Gen_populate(ContentValues parcelable) {
-    }
-
-    public android.content.ContentValues Gen_getValues() {
-        return new ContentValues();
-    }
-
-    public void Gen_update() {
+    public SharedPreferences getSerializable() {
+        return sharedPref;
     }
 }

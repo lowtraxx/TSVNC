@@ -48,15 +48,32 @@
             app:titleTextColor="@android:color/white"
             app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
 
-        <Button
-            android:id="@+id/exitButton"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_gravity="center"
-            android:text="@string/exit"
-            android:focusableInTouchMode="false"
-            android:focusable="false"
-            />
+            >
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/logout"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                />
+
+            <Button
+                android:id="@+id/exitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/exit"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                />
+        </LinearLayout>
 
     </FrameLayout>
 

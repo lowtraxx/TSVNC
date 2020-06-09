@@ -43,6 +43,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
@@ -528,8 +530,8 @@ public class VncCanvasActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		Intent i = getIntent();
 		settings = VncSettings.getPreferences(getApplication());
+		Intent i = getIntent();
 		Uri data = i.getData();
 		if ((data != null) && (data.getScheme().equals("vnc"))) {
 			String host = data.getHost();
@@ -571,13 +573,6 @@ public class VncCanvasActivity extends Activity {
 			    settings.save();
 			}
 		} else {
-
-		    Bundle extras = i.getExtras();
-
-		    if (extras != null) {
-		  	    settings.Gen_populate((ContentValues) extras
-				  	.getParcelable(VncConstants.CONNECTION));
-		    }
 		    if (settings.getPort() == 0)
 			    settings.setPort(5900);
 
@@ -610,14 +605,25 @@ public class VncCanvasActivity extends Activity {
             layout.setVisibility(layout.GONE);
             layout.requestLayout();
         } else {
-            Button exitButton = (Button) findViewById(R.id.exitButton);
-            exitButton.setOnClickListener(new View.OnClickListener() {
+			final Activity vca = this;
+            Button logoutButton = (Button) findViewById(R.id.logoutButton);
+            logoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
-                    System.exit(0);
+                	settings.setAutomaticLogin(false);
+					Intent intent = new Intent(vca, TSVNC.class);
+					startActivity(intent);
+					finish();
                 }
             });
+
+			Button exitButton = (Button) findViewById(R.id.exitButton);
+			exitButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finish();
+				}
+			});
         }
 
 		// We need to do this here, otherwise the first KeyEvent

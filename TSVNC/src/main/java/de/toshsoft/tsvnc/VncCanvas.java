@@ -147,7 +147,7 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	 * @param settings Connection settings
 	 * @param setModes Callback to run on UI thread after connection is set up
 	 */
-	void initializeVncCanvas(VncSettings settings, final Runnable setModes) {
+	void initializeVncCanvas(final VncSettings settings, final Runnable setModes) {
 		this.settings = settings;
 		if (this.settings.getUseWakeLock())
 		{
@@ -175,10 +175,11 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 		display.getRealMetrics(displayMetrics);
 		displayWidth = displayMetrics.widthPixels;
 		displayHeight = displayMetrics.heightPixels;
+
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					connectAndAuthenticate(VncCanvas.this.settings.getUserName(), VncCanvas.this.settings.getPassword());
+					connectAndAuthenticate(settings.getUserName(), settings.getPassword());
 					doProtocolInitialisation((int)displayWidth, (int)displayHeight);
 					handler.post(new Runnable() {
 						public void run() {
@@ -211,6 +212,10 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 								}
 							});
 						}
+
+						// If we fail to connect, disable automatic
+						// login as a precaution
+						settings.setAutomaticLogin(false);
 					}
 				}
 			}

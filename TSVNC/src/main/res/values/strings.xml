@@ -43,4 +43,6 @@
     <string name="menu">Menu</string>
     <string name="exit">Exit</string>
     <string name="show_menu_overlay">Show Menu Overlay (Beta)</string>
+    <string name="automatic_login">Automatic Login (Beta)</string>
+    <string name="logout">Logout</string>
 </resources>

@@ -95,7 +95,6 @@ abstract class AbstractScaling {
 			activity.inputHandler=activity.getInputHandlerById(getDefaultHandlerId());
 			activity.getSettings().setInputMode(activity.inputHandler.getName());
 		}
-		activity.getSettings().Gen_update();
 		activity.updateInputMenu();
 	}
 	

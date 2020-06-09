@@ -49,6 +49,7 @@ public class TSVNC extends Activity {
 	private EditText textUsername;
 	private CheckBox checkboxKeepPassword;
 	private CheckBox checkboxUseOverlay;
+	private CheckBox checkboxAutomaticLogin;
 	private AutoCompleteTextView editTextFilledExposedDropdown;
 
 	@Override
@@ -68,6 +69,7 @@ public class TSVNC extends Activity {
 		textUsername = (TextInputEditText)promptsView.findViewById(R.id.textUsername);
 		checkboxKeepPassword = (CheckBox)promptsView.findViewById(R.id.checkboxKeepPassword);
 		checkboxUseOverlay = (CheckBox)promptsView.findViewById(R.id.checkboxUseOverlay);
+		checkboxAutomaticLogin = (CheckBox)promptsView.findViewById(R.id.checkboxAutomaticLogin);
 
 		editTextFilledExposedDropdown =
 				promptsView.findViewById(R.id.filled_exposed_dropdown);
@@ -88,51 +90,44 @@ public class TSVNC extends Activity {
 
         editTextFilledExposedDropdown.setAdapter(adapter);
 
+		settings = VncSettings.getPreferences(getApplication());
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				this);
+		boolean automaticLogin = settings.getAutomaticLogin();
+		checkboxAutomaticLogin.setChecked(automaticLogin);
 
-		// set prompts.xml to alertdialog builder
-		alertDialogBuilder.setView(promptsView);
+		// If automatic login is enabled, try to straight jump to the canvas
+		if(automaticLogin) {
+			arriveOnPage();
+			canvasStart();
+		} else {
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					this);
 
-		// set dialog message
-		alertDialogBuilder
-				.setCancelable(false)
-				.setPositiveButton(R.string.connect_button,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,int id) {
-								canvasStart();
-							}
-						})
-                .setNegativeButton(android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                finishAndRemoveTask();
-                            }
-                        });
+			// set prompts.xml to alertdialog builder
+			alertDialogBuilder.setView(promptsView);
 
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
+			// set dialog message
+			alertDialogBuilder
+					.setCancelable(false)
+					.setPositiveButton(R.string.connect_button,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									canvasStart();
+								}
+							})
+					.setNegativeButton(android.R.string.cancel,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									finishAndRemoveTask();
+								}
+							});
 
-		// show it
-		alertDialog.show();
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
 
-		// Get screen width and height in pixels and set the Dialog to be
-		// 70 percent of its size
-		/*DisplayMetrics displayMetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-		int displayWidth = displayMetrics.widthPixels;
-		int displayHeight = displayMetrics.heightPixels;
-		WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-
-		layoutParams.copyFrom(alertDialog.getWindow().getAttributes());
-
-		int dialogWindowWidth = (int) (displayWidth * 0.9f);
-		int dialogWindowHeight = (int) (displayHeight * 0.9f);
-
-		layoutParams.width = dialogWindowWidth;
-		layoutParams.height = dialogWindowHeight;
-		alertDialog.getWindow().setAttributes(layoutParams);*/
+			// show it
+			alertDialog.show();
+		}
 	}
 	
 	protected void onDestroy() {
@@ -158,6 +153,7 @@ public class TSVNC extends Activity {
 		}
 		checkboxKeepPassword.setChecked(settings.getKeepPassword());
 		checkboxUseOverlay.setChecked(settings.getMenuOverlay());
+		checkboxAutomaticLogin.setChecked(settings.getAutomaticLogin());
 		textUsername.setText(settings.getUserName());
 
 		editTextFilledExposedDropdown.setText(COLORMODEL.getModelForId(settings.getColorModel()).toString(), false);
@@ -182,6 +178,7 @@ public class TSVNC extends Activity {
 		settings.setPassword(passwordText.getText().toString());
 		settings.setKeepPassword(checkboxKeepPassword.isChecked());
 		settings.setMenuOverlay(checkboxUseOverlay.isChecked());
+		settings.setAutomaticLogin(checkboxAutomaticLogin.isChecked());
 		// selected.setUseLocalCursor(checkboxLocalCursor.isChecked());
 		settings.setColorModel(COLORMODEL.getModelForDesc(editTextFilledExposedDropdown.getText().toString()).getId());
 		//selected.setUseWakeLock(checkboxWakeLock.isChecked());
@@ -202,7 +199,6 @@ public class TSVNC extends Activity {
 	}
 	
 	void arriveOnPage() {
-		settings = VncSettings.getPreferences(getApplication());
 		updateViewFromSelected();
 	}
 	
@@ -233,7 +229,7 @@ public class TSVNC extends Activity {
 	private void vnc() {
 		updateSelectedFromView();
 		Intent intent = new Intent(this, VncCanvasActivity.class);
-		intent.putExtra(VncConstants.CONNECTION, settings.Gen_getValues());
 		startActivity(intent);
+		finish();
 	}
 }
