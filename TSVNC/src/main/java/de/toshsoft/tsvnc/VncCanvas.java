@@ -860,7 +860,7 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 		int delay = 100;
 		
 		int scrollButton = 0;
-		
+
 		/* (non-Javadoc)
 		 * @see java.lang.Runnable#run()
 		 */
@@ -878,6 +878,32 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 				
 			}
 		}		
+	}
+
+	public boolean processScroll(int type) {
+		// Send a scroll event
+		try {
+			pointerMask |= type;
+			rfb.writePointerEvent(mouseX, mouseY, 0, type);
+			rfb.writePointerEvent(mouseX, mouseY, 0, 0);
+			rfb.writePointerEvent(mouseX, mouseY, 0, pointerMask);
+		} catch (IOException ioe) {
+			// TODO: do something with exception
+		}
+
+		// After 200ms reset it again
+		pointerMask &= ~type;
+		Runnable scrollRunnable = new Runnable() {
+			public void run() {
+				try {
+					rfb.writePointerEvent(mouseX, mouseY, 0, pointerMask);
+				} catch (IOException ioe) {
+					// TODO: do something with exception
+				}
+			}
+		};
+		handler.postDelayed(scrollRunnable, 200);
+		return true;
 	}
 
 	public boolean processLocalKeyEvent(int keyCode, KeyEvent evt) {

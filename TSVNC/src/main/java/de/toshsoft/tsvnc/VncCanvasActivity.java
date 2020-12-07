@@ -905,11 +905,22 @@ public class VncCanvasActivity extends Activity {
 
 	@Override
 	public boolean onGenericMotionEvent(MotionEvent event) {
+		int pointerCount = event.getPointerCount();
 		if ((event.getSource() & InputDevice.SOURCE_MOUSE) != 0) {
 			if (event.getButtonState() == MotionEvent.BUTTON_SECONDARY)
 				return inputHandler.onMouseButton(event);
 			switch (event.getAction()) {
-				case MotionEvent.ACTION_HOVER_MOVE: return inputHandler.onMouseMove(event);
+				case MotionEvent.ACTION_HOVER_MOVE:
+					if(pointerCount == 1)
+						return inputHandler.onMouseMove(event);
+					else if(pointerCount == 2)
+						break; // TODO: Scrolling needs to happen here in some cases
+
+				case MotionEvent.ACTION_SCROLL:
+					if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f)
+						vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN);
+					else
+						vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP);
 			}
 		}
 
