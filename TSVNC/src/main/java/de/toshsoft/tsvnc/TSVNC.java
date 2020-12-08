@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.ActivityManager.MemoryInfo;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -57,7 +58,8 @@ public class TSVNC extends Activity {
 
 		super.onCreate(icicle);
 		// setContentView(R.layout.main);
-
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		
 		// get prompts.xml view
 		LayoutInflater li = LayoutInflater.from(this);
 		View promptsView = li.inflate(R.layout.main, null);
