@@ -587,9 +587,9 @@ public class VncCanvasActivity extends Activity {
 
 						case MotionEvent.ACTION_SCROLL:
 							if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f)
-								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN, VncCanvas.MOUSE_BUTTON_NONE);
+								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN, false);
 							else
-								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP, VncCanvas.MOUSE_BUTTON_NONE);
+								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP, false);
 					}
 				}
 
@@ -647,9 +647,9 @@ public class VncCanvasActivity extends Activity {
 		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 			if (e1.isFromSource(InputDevice.SOURCE_MOUSE) && e1.getButtonState() != MotionEvent.BUTTON_PRIMARY && e2.getButtonState() != MotionEvent.BUTTON_PRIMARY) {
 				if (distanceY < 0.0f)
-					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN, VncCanvas.MOUSE_BUTTON_NONE);
+					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN, true);
 				else
-					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP, VncCanvas.MOUSE_BUTTON_NONE);
+					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP, true);
 
 				return true;
 			}

@@ -69,7 +69,10 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	private boolean maintainConnection = true;
 	private boolean showDesktopInfo = true;
 	private boolean repaintsEnabled = true;
-	
+
+	// Scrolling control flag
+	private boolean isScrolling = false;
+
 	/**
 	 * Use camera button as meta key for right mouse button
 	 */
@@ -481,6 +484,20 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	 */
 	MotionEvent changeTouchCoordinatesToFullFrame(MotionEvent e)
 	{
+		// If we scroll, do not move the pointer
+		if(isScrolling) {
+			if (e.getAction() == MotionEvent.ACTION_UP) {
+				isScrolling = false;
+			}
+
+			return e;
+		}
+
+		// Remove the scroll handler
+		handler.removeCallbacks(scrollRunnable);
+		pointerMask &= ~scrollRunnable.scrollButton;
+		scrollRunnable.scrollButton = 0;
+
 		//Log.v(TAG, String.format("tap at %f,%f", e.getX(), e.getY()));
 		float scale = getScale();
 		absoluteYPosition = -(int) ((getHeight() - (getImageHeight() * scale)) / 2.0f);
@@ -806,6 +823,10 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	 */
 	public boolean processPointerEvent(MotionEvent evt,boolean downEvent)
 	{
+		// If we scroll, do not move the pointer
+		if(isScrolling)
+			return false;
+
 		return processPointerEvent(evt,downEvent,cameraButtonDown);
 	}
 	
@@ -818,10 +839,18 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	 * @return true if event was actually sent
 	 */
 	public boolean processPointerEvent(MotionEvent evt,boolean downEvent,boolean useRightButton) {
+		// If we scroll, do not move the pointer
+		if(isScrolling)
+			return false;
+
 		return processPointerEvent((int)evt.getX(),(int)evt.getY(), evt.getAction(), evt.getMetaState(), downEvent, useRightButton);
 	}
 	
 	boolean processPointerEvent(int x, int y, int action, int modifiers, boolean mouseIsDown, boolean useRightButton) {
+		// If we scroll, do not move the pointer
+		if(isScrolling)
+			return false;
+
 		if (rfb != null && rfb.inNormalProtocol) {
 		    if (action == MotionEvent.ACTION_DOWN || (mouseIsDown && action == MotionEvent.ACTION_MOVE)) {
 		      if (useRightButton) {
@@ -858,7 +887,7 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	class MouseScrollRunnable implements Runnable
 	{
 		int delay = 100;
-		
+
 		int scrollButton = 0;
 
 		/* (non-Javadoc)
@@ -870,8 +899,11 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 			{
 				rfb.writePointerEvent(mouseX, mouseY, 0, scrollButton);
 				rfb.writePointerEvent(mouseX, mouseY, 0, 0);
-				
-				handler.postDelayed(this, delay);
+
+				//if(isScrolling)
+					handler.postDelayed(this, delay);
+				//else
+				//	scrollButton = 0;
 			}
 			catch (IOException ioe)
 			{
@@ -880,30 +912,26 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 		}		
 	}
 
-	public boolean processScroll(int type, int buttonDown) {
-		// Send a scroll event
-		try {
-			pointerMask = buttonDown;
-			pointerMask |= type;
-			rfb.writePointerEvent(mouseX, mouseY, 0, type);
-			rfb.writePointerEvent(mouseX, mouseY, 0, 0);
+	public boolean processScroll(final int type, boolean stopCursor) {
+		// If not auto-repeat
+		isScrolling = stopCursor;
+		try
+		{
+			if (scrollRunnable.scrollButton != type)
+			{
+				pointerMask = 0;
+				pointerMask |= type;
+				scrollRunnable.scrollButton = type;
+				handler.postDelayed(scrollRunnable,200);
+			}
+
 			rfb.writePointerEvent(mouseX, mouseY, 0, pointerMask);
-		} catch (IOException ioe) {
-			// TODO: do something with exception
+		}
+		catch (IOException ioe)
+		{
+			isScrolling = false;
 		}
 
-		// After 200ms reset it again
-		pointerMask &= ~type;
-		Runnable scrollRunnable = new Runnable() {
-			public void run() {
-				try {
-					rfb.writePointerEvent(mouseX, mouseY, 0, pointerMask);
-				} catch (IOException ioe) {
-					// TODO: do something with exception
-				}
-			}
-		};
-		handler.postDelayed(scrollRunnable, 200);
 		return true;
 	}
 
