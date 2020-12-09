@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.toshsoft.tsvnc" android:installLocation="auto" android:versionCode="17" android:versionName="0.7.2">
+    package="de.toshsoft.tsvnc" android:installLocation="auto" android:versionCode="18" android:versionName="0.7.3">
     <application android:theme="@style/TSVNCTheme" android:icon="@mipmap/ic_launcher" android:label="TSVNC">
  		<activity android:label="@string/app_name" android:name="TSVNC" android:theme="@style/TSVNCTheme.Dialog">
 			<intent-filter>
