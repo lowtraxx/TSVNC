@@ -38,6 +38,7 @@ interface AbstractInputHandler {
 	 * @see android.app.Activity#onTrackballEvent(android.view.MotionEvent)
 	 */
 	boolean onTouchEvent( MotionEvent evt);
+	boolean onGenericMotionEvent(MotionEvent event);
 
 	boolean onMouseMove( MotionEvent evt );
 	boolean onMouseButton(MotionEvent event);

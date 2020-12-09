@@ -34,12 +34,6 @@ abstract class AbstractScaling {
 					case R.id.itemFitToScreen :
 						scalings[i]=new FitToScreenScaling();
 						break;
-					case R.id.itemOneToOne :
-						scalings[i]=new OneToOneScaling();
-						break;
-					case R.id.itemZoomable :
-						scalings[i]=new ZoomScaling();
-						break;
 					}
 				}
 				return scalings[i];
