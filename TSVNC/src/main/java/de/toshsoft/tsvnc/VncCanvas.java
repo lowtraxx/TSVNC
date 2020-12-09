@@ -780,7 +780,7 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
     final static int META_MASK  = 0;
     final static int ALT_MASK   = KeyEvent.META_ALT_ON;
     
-	private static final int MOUSE_BUTTON_NONE = 0;
+	static final int MOUSE_BUTTON_NONE = 0;
 	static final int MOUSE_BUTTON_LEFT = 1;
 	static final int MOUSE_BUTTON_MIDDLE = 2;
 	static final int MOUSE_BUTTON_RIGHT = 4;
@@ -830,7 +830,7 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 		        pointerMask = MOUSE_BUTTON_LEFT;
 		      }
 		    } else if (action == MotionEvent.ACTION_UP) {
-		      pointerMask = 0;
+		      pointerMask = MOUSE_BUTTON_NONE;
 		    }
 		    bitmapData.invalidateMousePosition();
 		    mouseX= x;
@@ -880,9 +880,10 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 		}		
 	}
 
-	public boolean processScroll(int type) {
+	public boolean processScroll(int type, int buttonDown) {
 		// Send a scroll event
 		try {
+			pointerMask = buttonDown;
 			pointerMask |= type;
 			rfb.writePointerEvent(mouseX, mouseY, 0, type);
 			rfb.writePointerEvent(mouseX, mouseY, 0, 0);

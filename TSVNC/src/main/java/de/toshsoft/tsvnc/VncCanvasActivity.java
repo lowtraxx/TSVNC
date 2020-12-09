@@ -487,22 +487,6 @@ public class VncCanvasActivity extends Activity {
 		dialog.show();
 	}
 
-	float panTouchX, panTouchY;
-
-	/**
-	 * Pan based on touch motions
-	 * 
-	 * @param event
-	 */
-	private boolean pan(MotionEvent event) {
-		float curX = event.getX();
-		float curY = event.getY();
-		int dX = (int) (panTouchX - curX);
-		int dY = (int) (panTouchY - curY);
-
-		return vncCanvas.pan(dX, dY);
-	}
-
 	boolean defaultKeyDownHandler(int keyCode, KeyEvent evt) {
 		if (vncCanvas.processLocalKeyEvent(keyCode, evt))
 			return true;
@@ -515,45 +499,9 @@ public class VncCanvasActivity extends Activity {
 		return super.onKeyUp(keyCode, evt);
 	}
 
-	boolean touchPan(MotionEvent event) {
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			panTouchX = event.getX();
-			panTouchY = event.getY();
-			break;
-		case MotionEvent.ACTION_MOVE:
-			pan(event);
-			panTouchX = event.getX();
-			panTouchY = event.getY();
-			break;
-		case MotionEvent.ACTION_UP:
-			pan(event);
-			break;
-		}
-		return true;
-	}
-
-	private static int convertTrackballDelta(double delta) {
-		return (int) Math.pow(Math.abs(delta) * 6.01, 2.5)
-				* (delta < 0.0 ? -1 : 1);
-	}
-
-	boolean trackballMouse(MotionEvent evt) {
-		int dx = convertTrackballDelta(evt.getX());
-		int dy = convertTrackballDelta(evt.getY());
-
-		evt.offsetLocation(vncCanvas.mouseX + dx - evt.getX(), vncCanvas.mouseY
-				+ dy - evt.getY());
-
-		if (vncCanvas.processPointerEvent(evt, trackballButtonDown)) {
-			return true;
-		}
-		return VncCanvasActivity.super.onTouchEvent(evt);
-	}
-
 	boolean mouseMoveEvent(MotionEvent evt) {
 		// evt.offsetLocation(-(evt.getX() / vncCanvas.scaling.getScale()), -(evt.getY() / vncCanvas.scaling.getScale()));
-		return vncCanvas.processPointerEvent(evt, trackballButtonDown);
+		return vncCanvas.processPointerEvent(evt, evt.getButtonState() == MotionEvent.BUTTON_PRIMARY);
 	}
 
 	boolean mouseClickEvent(MotionEvent evt) {
@@ -639,9 +587,9 @@ public class VncCanvasActivity extends Activity {
 
 						case MotionEvent.ACTION_SCROLL:
 							if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f)
-								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN);
+								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN, VncCanvas.MOUSE_BUTTON_NONE);
 							else
-								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP);
+								vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP, VncCanvas.MOUSE_BUTTON_NONE);
 					}
 				}
 
@@ -699,9 +647,9 @@ public class VncCanvasActivity extends Activity {
 		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 			if (e1.isFromSource(InputDevice.SOURCE_MOUSE) && e1.getButtonState() != MotionEvent.BUTTON_PRIMARY && e2.getButtonState() != MotionEvent.BUTTON_PRIMARY) {
 				if (distanceY < 0.0f)
-					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN);
+					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_DOWN, VncCanvas.MOUSE_BUTTON_NONE);
 				else
-					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP);
+					vncCanvas.processScroll(vncCanvas.MOUSE_BUTTON_SCROLL_UP, VncCanvas.MOUSE_BUTTON_NONE);
 
 				return true;
 			}
