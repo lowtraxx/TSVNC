@@ -8,7 +8,7 @@
 				<category android:name="android.intent.category.LAUNCHER"></category>
 			</intent-filter>
 		</activity>
-		<activity android:configChanges="orientation|keyboardHidden" android:name="VncCanvasActivity">
+		<activity android:configChanges="orientation|screenSize|keyboard|keyboardHidden|navigation" android:name="VncCanvasActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW"></action>
 			</intent-filter>
