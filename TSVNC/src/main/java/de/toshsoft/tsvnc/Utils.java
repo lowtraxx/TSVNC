@@ -58,7 +58,10 @@ public class Utils {
 		showMessage(_context, "Error!", message, android.R.drawable.ic_dialog_alert, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(_context, TSVNC.class);
+				_context.startActivity(intent);
 				((Activity) _context).finish();
+
 			}
 		});
 	}

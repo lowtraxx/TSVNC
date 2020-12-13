@@ -208,7 +208,11 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 							if (e.getMessage() != null && (e.getMessage().indexOf("authentication") > -1)) {
 								error = "VNC authentication failed!";
  							}
-							final String error_ = error + "<br>" + e.getLocalizedMessage();
+							final String error_;
+							if(e.getLocalizedMessage() != null)
+								error_ = error + "<br>" + e.getLocalizedMessage();
+							else
+								error_ = error + "<br>" + getContext().getString(R.string.unknown_error);
 							handler.post(new Runnable() {
 								public void run() {
 									Utils.showFatalErrorMessage(getContext(), error_);
@@ -900,14 +904,11 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 				rfb.writePointerEvent(mouseX, mouseY, 0, scrollButton);
 				rfb.writePointerEvent(mouseX, mouseY, 0, 0);
 
-				//if(isScrolling)
-					handler.postDelayed(this, delay);
-				//else
-				//	scrollButton = 0;
+				handler.postDelayed(this, delay);
 			}
 			catch (IOException ioe)
 			{
-				
+				isScrolling = false;
 			}
 		}		
 	}
@@ -922,6 +923,7 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 				pointerMask = 0;
 				pointerMask |= type;
 				scrollRunnable.scrollButton = type;
+
 				handler.postDelayed(scrollRunnable,200);
 			}
 

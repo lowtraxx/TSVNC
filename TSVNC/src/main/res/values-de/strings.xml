@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="address_caption">Addresse</string>
+    <string name="app_name">TSVNC</string>
+    <string name="arrow_down">Pfeil unten</string>
+    <string name="arrow_left">Pfeil links</string>
+    <string name="arrow_right">Pfeil rechts</string>
+    <string name="arrow_up">Pfeil oben</string>
+    <string name="center_mouse">Maus @</string>
+    <string name="color_mode">Farbmodus</string>
+    <string name="connect_button">Verbinden</string>
+    <string name="ctrl_alt_del">Strg-Alt-Entf</string>
+    <string name="delete_connection">Verbindung löschen</string>
+    <string name="disconnect">Verbindung trennen</string>
+    <string name="enter_text">Text senden</string>
+    <string name="fit_to_screen">An Bildschirm anpassen</string>
+    <string name="info">Info</string>
+    <string name="input_mode">Eingabemodus</string>
+    <string name="keep_password_button">Passwort speichern</string>
+    <string name="password_caption">Passwort</string>
+    <string name="port_caption">Port</string>
+    <string name="shortcut_label">VNC Verbindung</string>
+    <string name="special_keys">Spezialtasten</string>
+    <string name="username_caption">Benutzername</string>
+    <string name="menu">Menü</string>
+    <string name="exit">Beenden</string>
+    <string name="show_menu_overlay">Menü overlay anzeigen (Beta)</string>
+    <string name="automatic_login">Automatischer Login (Beta)</string>
+    <string name="logout">Logout</string>
+    <string name="unknown_error">Unbekannter Fehler.</string>
+</resources>
