@@ -10,6 +10,8 @@ android {
         applicationId "de.toshsoft.tsvnc"
         minSdkVersion 24
         targetSdkVersion 29
+        versionCode 19
+        versionName '0.7.4'
     }
 
     buildTypes {
