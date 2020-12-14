@@ -26,6 +26,7 @@ import android.app.ActivityManager.MemoryInfo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -57,7 +58,11 @@ public class TSVNC extends Activity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		// setContentView(R.layout.main);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+		// Workaround for crash in Android 8.0
+		if (android.os.Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		}
 		
 		// get prompts.xml view
 		LayoutInflater li = LayoutInflater.from(this);
