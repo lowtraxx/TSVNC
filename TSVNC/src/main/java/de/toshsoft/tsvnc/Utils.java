@@ -61,18 +61,19 @@ public class Utils {
 				Intent intent = new Intent(_context, TSVNC.class);
 				_context.startActivity(intent);
 				((Activity) _context).finish();
-
 			}
 		});
 	}
 	
 	public static void showMessage(Context _context, String title, String message, int icon, DialogInterface.OnClickListener ackHandler) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(_context);
-		builder.setTitle(title);
-		builder.setMessage(Html.fromHtml(message));
-		builder.setCancelable(false);
-		builder.setPositiveButton("Acknowledged", ackHandler);
-		builder.setIcon(icon);
-		builder.show();
+		if(!((Activity) _context).isFinishing()) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+			builder.setTitle(title);
+			builder.setMessage(Html.fromHtml(message));
+			builder.setCancelable(false);
+			builder.setPositiveButton("Acknowledged", ackHandler);
+			builder.setIcon(icon);
+			builder.show();
+		}
 	}
 }

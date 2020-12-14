@@ -55,7 +55,6 @@ public class TSVNC extends Activity {
 
 	@Override
 	public void onCreate(Bundle icicle) {
-
 		super.onCreate(icicle);
 		// setContentView(R.layout.main);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

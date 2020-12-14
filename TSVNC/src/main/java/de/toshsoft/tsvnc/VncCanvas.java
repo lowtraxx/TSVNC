@@ -1097,11 +1097,11 @@ public class VncCanvas extends androidx.appcompat.widget.AppCompatImageView {
 	}
 
 	public int getImageWidth() {
-		return bitmapData.framebufferwidth;
+		return bitmapData != null ? bitmapData.framebufferwidth : 0;
 	}
 
 	public int getImageHeight() {
-		return bitmapData.framebufferheight;
+		return bitmapData != null ? bitmapData.framebufferheight : 0;
 	}
 	
 	public int getCenteredXOffset() {
