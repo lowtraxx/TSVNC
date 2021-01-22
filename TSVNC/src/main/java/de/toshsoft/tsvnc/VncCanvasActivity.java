@@ -500,12 +500,11 @@ public class VncCanvasActivity extends Activity {
 	}
 
 	boolean mouseMoveEvent(MotionEvent evt) {
-		// evt.offsetLocation(-(evt.getX() / vncCanvas.scaling.getScale()), -(evt.getY() / vncCanvas.scaling.getScale()));
 		return vncCanvas.processPointerEvent(evt, evt.getButtonState() == MotionEvent.BUTTON_PRIMARY);
 	}
 
 	boolean mouseClickEvent(MotionEvent evt) {
-		evt.offsetLocation(-(evt.getX() / vncCanvas.scaling.getScale()), -(evt.getY() / vncCanvas.scaling.getScale()));
+		vncCanvas.changeTouchCoordinatesToFullFrame(evt);
 		return vncCanvas.processPointerEvent((int)evt.getX(),(int)evt.getY(),
 				MotionEvent.ACTION_DOWN, evt.getMetaState(),
 				true, true);
