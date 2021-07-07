@@ -61,7 +61,7 @@ public class TSVNC extends Activity {
 
 		// Workaround for crash in Android 8.0
 		if (android.os.Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		}
 		
 		// get prompts.xml view
